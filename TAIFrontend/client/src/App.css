@@ -1,0 +1,112 @@
+.App {
+    text-align: center;
+    background-color: lightgray;
+    height:990px;
+}
+
+.item {
+    vertical-align: top;
+    float: left;
+    text-align: center;
+    width: 200px;
+}
+
+.divLeft {
+    /*float:left;*/
+    width: 100%;
+    height: 340px;
+    padding-left:12px;
+    padding-top:12px;
+    border-bottom: 5px dotted #C42D46;
+}
+
+.divRight {
+    /*float:left;*/
+    width: 100%;
+}
+
+.padder {
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 200px;
+}
+
+.App-logo {
+    /*animation: App-logo-spin infinite 20s linear;*/
+    height: 150px;
+    margin-left: 500px;
+}
+
+.logoclass {
+    text-align:left;
+}
+.App-header {
+    background-color: #F7F3DA;
+    height: 150px;
+    padding: 20px;
+    color: white;
+    border-bottom: 5px dotted #C42D46;
+}
+
+.App-title {
+    font-size: 1.5em;
+}
+
+.App-intro {
+    font-size: large;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.Buttons {
+    text-align:right;
+    margin-top:-140px;
+}
+
+
+
+.Buttons button {
+    background-color: #C42D46;
+    /*color: #0099CC;*/
+    border: 2px solid #C42D46;
+    border-radius: 6px;
+    /*border: none;*/
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+
+.Buttons button:hover {
+    border: 2px solid transparent;
+    background: transparent;
+    color: #C42D46;
+}
+.textHeader {
+    text-shadow: 4px 1px 8px rgba(237, 221, 236, 1);
+    font-weight: normal;
+    font-variant: small-caps;
+    color: #C42D46;
+    letter-spacing: 2pt;
+    word-spacing: 2pt;
+    font-size: 56px;
+    text-align: center;
+    font-family: helvetica, sans-serif;
+    line-height: 1;
+    margin-top:-100px;
+}
