@@ -11,17 +11,18 @@ interface HomeProps {
 
 interface HomeState {
     authenticated: boolean;
-    inputval : ' ';
+    inputval: ' ';
 }
 
 export default withAuth(class Home extends React.Component<HomeProps, HomeState> {
     constructor(props: HomeProps) {
         super(props);
-        this.state = {authenticated: false, inputval:' '};
+        this.state = {authenticated: false, inputval: ' '};
         this.checkAuthentication = this.checkAuthentication.bind(this);
         this.login = this.login.bind(this);
         this.logout = this.logout.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     async checkAuthentication() {
@@ -34,11 +35,15 @@ export default withAuth(class Home extends React.Component<HomeProps, HomeState>
 
     handleSubmit(event) {
         alert('A name was submitted: ' + this.state.inputval);
-        fetch('127.0.0.1:8000/search'{
+        fetch('127.0.0.1:8080/search', {
           method: 'POST',
           body: event.target.value
         });
         event.preventDefault();
+    }
+
+    handleChange(event) {
+        this.setState({inputval: event.target.value});
     }
 
     async componentDidMount() {
@@ -79,13 +84,12 @@ export default withAuth(class Home extends React.Component<HomeProps, HomeState>
                     <h1 className="textHeader">TV Shows Progresser</h1>
                     <div className="divRight">{button}</div>
                 </header>
-                <form>
-                    < input style={{height: 40}}
-                            placeholder="Type here to translate!"
-                            value={this.state.inputval}
-                            onChange={(e) => this.setState({inputval:  e.target.value})}
-                            onSubmit={(e) => this.handleSubmit(e)}
-                    />
+                <form onSubmit={this.handleSubmit}>
+                    <label>
+                        Name:
+                        <input type="text" value={this.state.inputval} onChange={this.handleChange} />
+                    </label>
+                    <input type="submit" value="Search" />
                 </form>
             </div>
         );
