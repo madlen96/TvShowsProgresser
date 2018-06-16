@@ -72,7 +72,7 @@
 
 
 
-.Buttons button {
+.Buttons button, input[type="submit"] {
     background-color: #C42D46;
     /*color: #0099CC;*/
     border: 2px solid #C42D46;
@@ -92,10 +92,31 @@
 }
 
 
-.Buttons button:hover {
+.Buttons button:hover, input[type="submit"]:hover {
     border: 2px solid transparent;
     background: transparent;
     color: #C42D46;
+}
+
+input[type="text"]
+{
+    height: 40px;
+    width:50%;
+    border-radius:12px;
+    border: 5px solid #e38292;
+    font-family: verdana, "Droid Sans";
+    font-size:25px;
+    margin-top: 24px;
+    margin-right:20px;
+    margin-bottom:20px;
+    padding:5px;
+}
+input {
+    outline:none;
+}
+input[type="text"]:hover
+{
+    border: 5px solid #C42D46;
 }
 .textHeader {
     text-shadow: 4px 1px 8px rgba(237, 221, 236, 1);

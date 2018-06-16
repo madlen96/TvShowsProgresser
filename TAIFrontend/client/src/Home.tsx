@@ -3,7 +3,7 @@ import './App.css';
 import { withAuth } from '@okta/okta-react';
 import { Auth } from './App';
 const logo = require('./logo.jpg');
-
+import MovieList from './MovieList';
 interface HomeProps {
     auth: Auth;
     text: String;
@@ -35,7 +35,7 @@ export default withAuth(class Home extends React.Component<HomeProps, HomeState>
 
     handleSubmit(event) {
         alert('A name was submitted: ' + this.state.inputval);
-        fetch('127.0.0.1:8080/search', {
+        fetch('http://localhost:8080/search', {
           method: 'POST',
           body: event.target.value
         });
@@ -63,11 +63,17 @@ export default withAuth(class Home extends React.Component<HomeProps, HomeState>
     }
     render() {
         const {authenticated} = this.state;
-        let button ;
+        let button = null;
+        let movieList = null;
         if (authenticated) {
             button = (
                 <div className="Buttons">
                     <button onClick={this.logout}>Logout</button>
+                </div>
+            );
+            movieList = (
+                <div className="Movies">
+                    <MovieList auth={this.props.auth}/>
                 </div>
             );
         } else {
@@ -84,12 +90,14 @@ export default withAuth(class Home extends React.Component<HomeProps, HomeState>
                     <h1 className="textHeader">TV Shows Progresser</h1>
                     <div className="divRight">{button}</div>
                 </header>
+                <div className="divLeft">{movieList}</div>
                 <form onSubmit={this.handleSubmit}>
                     <label>
-                        Name:
                         <input type="text" value={this.state.inputval} onChange={this.handleChange} />
                     </label>
+                    <div>
                     <input type="submit" value="Search" />
+                    </div>
                 </form>
             </div>
         );
