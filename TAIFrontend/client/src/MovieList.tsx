@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Auth } from './App';
-// import GiphyImage from './GiphyImage';
 
 interface Movie {
     id: string;
@@ -32,7 +31,6 @@ class MovieList extends React.Component<MovieListProps, MovieListState> {
 
     async componentDidMount() {
         this.setState({isLoading: true});
-
         try {
             const response = await fetch('http://localhost:8080/good-movies', {
                 headers: {
@@ -44,6 +42,7 @@ class MovieList extends React.Component<MovieListProps, MovieListState> {
         } catch (err) {
             this.setState({error: err});
         }
+
     }
 
     render() {

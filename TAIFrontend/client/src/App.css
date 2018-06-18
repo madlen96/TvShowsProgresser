@@ -25,10 +25,20 @@
     width: 100%;
 }
 
+.divSearch {
+    /*float:left;*/
+    width: 100%;
+}
+
 .padder {
     margin-left: 10px;
     margin-right: 10px;
     width: 200px;
+}
+
+.resultList {
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .App-logo {
