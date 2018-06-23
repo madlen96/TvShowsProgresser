@@ -1,20 +1,25 @@
 import * as React from 'react';
 import './App.css';
-import { withAuth } from '@okta/okta-react';
-import { Auth } from './App';
+import {withAuth} from '@okta/okta-react';
+import {Auth} from './App';
+
 const logo = require('./logo.jpg');
 import MovieList from './MovieList';
-import Movie from './MovieList';
-// import axios from 'axios';
+import axios from 'axios';
 
 interface HomeProps {
     auth: Auth;
     text: String;
 }
 
+interface MovieFound {
+    id: string;
+    title: string;
+}
+
 interface HomeState {
     authenticated: boolean;
-    list: Array<Movie>;
+    list: Array<MovieFound>;
     inputval: ' ';
 }
 
@@ -37,20 +42,27 @@ export default withAuth(class Home extends React.Component<HomeProps, HomeState>
         }
     }
 
-    handleSubmit(event) {
+    async handleSubmit(event) {
         alert('A name was submitted: ' + this.state.inputval);
-        fetch('http://localhost:8080/search', {
-            method: 'POST', 
-            body: event.target.value
-        }).then(response => response.json())
-             .then(data => this.setState({ list: data.list }));
         event.preventDefault();
-    }
+        axios.get('https://api.themoviedb.org/3/search/movie', {
+            params: {
+                api_key: '96e922a6bdf38660f798b285e289fd8a',
+                query: this.state.inputval
+            }
+        })
+            .then(response => {
+                this.setState({
+                    list: response.data.results
+                });
+                console.log(this.state.list);
 
-    handleChange(e) {
+            });
+    }
+    handleChange(event) {
         // Because we named the inputs to match their corresponding values in state, it's
         // super easy to update the state    [e.target.name]
-        this.setState({ inputval: e.target.value });
+        this.setState({inputval: event.target.value});
     }
 
     async componentDidMount() {
@@ -68,12 +80,13 @@ export default withAuth(class Home extends React.Component<HomeProps, HomeState>
     async logout() {
         this.props.auth.logout();
     }
+
     render() {
         const {authenticated} = this.state;
         let button = null;
         let movieList = null;
         let noMovieList = null;
-        let list = null;
+        let listFound = this.state.list.map((d) => <li key={d.id}>{d.title}</li>);
         if (authenticated) {
             button = (
                 <div className="Buttons">
@@ -85,7 +98,7 @@ export default withAuth(class Home extends React.Component<HomeProps, HomeState>
                     <MovieList auth={this.props.auth}/>
                 </div>
             );
-            
+
         } else {
             button = (
                 <div className="Buttons">
@@ -98,24 +111,25 @@ export default withAuth(class Home extends React.Component<HomeProps, HomeState>
                 </div>
             );
         }
-        
+
         return (
             <div className="App">
                 <header className="App-header">
-                    <div className="logoclass">           <img src={logo} className="App-logo" alt="logo"/></div>
+                    <div className="logoclass"><img src={logo} className="App-logo" alt="logo"/></div>
                     <h1 className="textHeader">TV Shows Progresser</h1>
                     <div className="divRight">{button}</div>
                 </header>
                 <div className="divLeft">{movieList}{noMovieList}</div>
                 <form onSubmit={this.handleSubmit}>
                     <label>
-                        <input type="text" value={this.state.inputval} onChange={this.handleChange} />
+                        <input type="text" value={this.state.inputval} onChange={this.handleChange}/>
                     </label>
                     <div>
-                    <input type="submit" value="Search" />
+                        <input type="submit" value="Search"/>
                     </div>
                 </form>
-                <div className="divSearch">{list}</div>
+                <div className="divSearch">{listFound}
+                </div>
             </div>
         );
     }
