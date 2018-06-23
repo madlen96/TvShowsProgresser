@@ -9,6 +9,7 @@ import com.tai.tvshowsprogresser.repository.MovieRepository;
 import org.springframework.web.bind.annotation.*;
 import com.tai.tvshowsprogresser.TmdbConnection;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -31,16 +32,16 @@ public class MovieController {
         return repository.findAll().stream()
                 .collect(Collectors.toList());
     }
-
-    @RequestMapping(value="/search", method=RequestMethod.POST, consumes="application/json")
+    // does not work
+    @PostMapping("/search")
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:5000"})
-    public @ResponseBody List<Movie> search(@RequestBody String title) throws MovieDbException {
+    public List<Movie> search(@Valid @RequestBody String title) throws MovieDbException {
         MovieDb movieDb;
         List<Movie> resultList = new ArrayList<>();
         List<MovieDb> list = api.searchMovie(title, "english", true);
         for (MovieDb m : list) {
             Movie movie = tmdbMovietoMovie(m);
-            resultList.add(movie);
+              resultList.add(movie);
         }
         return resultList;
     }
