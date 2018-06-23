@@ -1,7 +1,7 @@
 .App {
     text-align: center;
     background-color: lightgray;
-    height:990px;
+
 }
 
 .item {
@@ -13,7 +13,8 @@
 
 .divLeft {
     /*float:left;*/
-    width: 100%;
+
+    /*width: 100%;*/
     height: 340px;
     padding-left:12px;
     padding-top:12px;
@@ -140,4 +141,11 @@ input[type="text"]:hover
     font-family: helvetica, sans-serif;
     line-height: 1;
     margin-top:-100px;
+}
+
+.divSearch{
+    font-size: 20px;
+    font-family: "Droid Sans";
+    word-spacing: 2pt;
+
 }
